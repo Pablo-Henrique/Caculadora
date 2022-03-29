@@ -5,22 +5,31 @@ import java.awt.*;
 
 public class UI extends JFrame {
 
-    JTextField textField;
-
-    public UI(Dimension dimension) {
-        JFrame frame = new JFrame("Calculadora");
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        frame.setSize(dimension);
-        frame.setVisible(true);
-        frame.setResizable(false);
-        frame.add(visor());
+    public static void init() {
+        new UI();
     }
 
-    private JTextField visor() {
-        textField = new JTextField("0");
-        textField.setBounds(0, 0, 30, 50);
-        textField.setAlignmentY(getAlignmentY());
-        return textField;
+    public UI() {
+        super("Calculadora");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        getContentPane().setBackground(Color.DARK_GRAY);
+
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+
+        setSize(320, 520);
+        setLocationRelativeTo(null);
+        setResizable(false);
+
+
+        setLayout(new BorderLayout());
+        add(BorderLayout.NORTH, new TextPanel());
+
+
+        setVisible(true);
     }
 
 }

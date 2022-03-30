@@ -20,13 +20,15 @@ public class UI extends JFrame {
             e.printStackTrace();
         }
 
-        setSize(325, 520);
+        setSize(350, 500);
         setLocationRelativeTo(null);
         setResizable(false);
 
 
+
         add(BorderLayout.NORTH, new TextPanel());
-        add(BorderLayout.CENTER, new ButtonPanel());
+        add(BorderLayout.CENTER, new NumPanel());
+        add(BorderLayout.EAST, new Operacoes());
 
         setVisible(true);
     }

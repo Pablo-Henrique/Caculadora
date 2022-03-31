@@ -9,7 +9,6 @@ public class TextPanel extends JPanel {
 
     public TextPanel() {
         setLayout(new BorderLayout());
-        setSize(40, UI.HEIGHT - 25);
         setBackground(Color.DARK_GRAY);
 
         jLabel.setHorizontalAlignment(JLabel.RIGHT);

@@ -11,8 +11,8 @@ public class Operacoes extends JPanel {
     private final JButton btnMultip = new JButton("*");
 
     public Operacoes() {
-        setBackground(Color.black);
-        setLayout(new GridLayout(4, 1, 3 , 3));
+        setBackground(Color.DARK_GRAY);
+        setLayout(new GridLayout(4, 1, 3, 3));
 
         add(getBtnDivsao());
         add(getBtnMais());

@@ -24,8 +24,6 @@ public class UI extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
-
-
         add(BorderLayout.NORTH, new TextPanel());
         add(BorderLayout.CENTER, new NumPanel());
         add(BorderLayout.EAST, new Operacoes());

@@ -21,9 +21,8 @@ public class NumPanel extends JPanel implements ActionListener {
     private final JButton btnCE = new JButton("CE");
 
     public NumPanel() {
-        setBackground(Color.BLACK);
-        setLayout(new GridLayout(4, 3, 3, 3));
-
+        setBackground(Color.DARK_GRAY);
+        setLayout(new GridLayout(4, 4, 3, 3));
 
         // Primeira linha
         add(getBtnSete());
@@ -96,8 +95,23 @@ public class NumPanel extends JPanel implements ActionListener {
     }
 
     public static JButton configBtn(JButton jButton) {
+        jButton.setContentAreaFilled(false);
+        jButton.setOpaque(true);
+
         jButton.setBackground(Color.black);
         jButton.setForeground(Color.WHITE);
+
+        jButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton.setBackground(Color.CYAN);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton.setBackground(Color.BLACK);
+            }
+        });
+
+
         jButton.setFont(new Font("Buttons", Font.BOLD, 15));
         return jButton;
     }

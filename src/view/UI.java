@@ -1,5 +1,7 @@
 package view;
 
+import utils.Operacoes;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -24,9 +26,11 @@ public class UI extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
-        add(BorderLayout.NORTH, new TextPanel());
-        add(BorderLayout.CENTER, new NumPanel());
-        add(BorderLayout.EAST, new Operacoes());
+        ValuePanel textPanel = new ValuePanel();
+
+        add(BorderLayout.NORTH, textPanel);
+        add(BorderLayout.CENTER, new NumPanel(textPanel));
+        add(BorderLayout.EAST, new OperacoesPanel(textPanel));
 
         setVisible(true);
     }

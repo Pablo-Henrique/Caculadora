@@ -1,5 +1,7 @@
 package view;
 
+import utils.Config;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,10 +19,13 @@ public class NumPanel extends JPanel implements ActionListener {
     private final JButton btnSete = new JButton("7");
     private final JButton btnOito = new JButton("8");
     private final JButton btnNove = new JButton("9");
-    private final JButton btnIgual = new JButton("=");
-    private final JButton btnCE = new JButton("CE");
 
-    public NumPanel() {
+    private ValuePanel valuePanel;
+
+    public NumPanel(ValuePanel valuePanel) {
+        this.valuePanel = valuePanel;
+        OperacoesPanel op = new OperacoesPanel(valuePanel);
+
         setBackground(Color.DARK_GRAY);
         setLayout(new GridLayout(4, 4, 3, 3));
 
@@ -40,84 +45,77 @@ public class NumPanel extends JPanel implements ActionListener {
         add(getBtnTres());
 
         // Ultima linha
-        add(getBtnCE());
+        add(op.getBtnCE());
         add(getBtnZero());
-        add(getBtnIgual());
+        add(op.getBtnIgual());
 
     }
 
     private JButton getBtnZero() {
-        return configBtn(btnZero);
+        btnZero.addActionListener(this);
+        return Config.btnConfig(btnZero);
     }
 
     public JButton getBtnUm() {
-        return configBtn(btnUm);
+        btnUm.addActionListener(this);
+        return Config.btnConfig(btnUm);
     }
 
     public JButton getBtnDois() {
-        return configBtn(btnDois);
+        btnDois.addActionListener(this);
+        return Config.btnConfig(btnDois);
     }
 
     public JButton getBtnTres() {
-        return configBtn(btnTres);
+        btnTres.addActionListener(this);
+        return Config.btnConfig(btnTres);
     }
 
     public JButton getBtnQuatro() {
-        return configBtn(btnQuatro);
+        btnQuatro.addActionListener(this);
+        return Config.btnConfig(btnQuatro);
     }
 
     public JButton getBtnCinco() {
-        return configBtn(btnCinco);
+        btnCinco.addActionListener(this);
+        return Config.btnConfig(btnCinco);
     }
 
     public JButton getBtnSeis() {
-        return configBtn(btnSeis);
+        btnSeis.addActionListener(this);
+        return Config.btnConfig(btnSeis);
     }
 
     public JButton getBtnSete() {
-        return configBtn(btnSete);
+        btnSete.addActionListener(this);
+        return Config.btnConfig(btnSete);
     }
 
     public JButton getBtnOito() {
-        return configBtn(btnOito);
+        btnOito.addActionListener(this);
+        return Config.btnConfig(btnOito);
     }
 
     public JButton getBtnNove() {
-        return configBtn(btnNove);
+        btnNove.addActionListener(this);
+        return Config.btnConfig(btnNove);
     }
 
-    public JButton getBtnIgual() {
-        return configBtn(btnIgual);
+    public ValuePanel getPanel() {
+        return valuePanel;
     }
 
-    public JButton getBtnCE() {
-        return configBtn(btnCE);
-    }
-
-    public static JButton configBtn(JButton jButton) {
-        jButton.setContentAreaFilled(false);
-        jButton.setOpaque(true);
-
-        jButton.setBackground(Color.black);
-        jButton.setForeground(Color.WHITE);
-
-        jButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton.setBackground(Color.CYAN);
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton.setBackground(Color.BLACK);
-            }
-        });
-
-
-        jButton.setFont(new Font("Buttons", Font.BOLD, 15));
-        return jButton;
+    public void setPanel(ValuePanel panel) {
+        this.valuePanel = panel;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        JButton btn = (JButton) e.getSource();
+        String number = btn.getText();
+        if (valuePanel.getValuePanel().getText().equals("0")) {
+            valuePanel.getValuePanel().setText("");
+        }
+        valuePanel.getValuePanel().setText(valuePanel.getValuePanel().getText().concat(number));
     }
 }

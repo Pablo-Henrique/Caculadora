@@ -113,9 +113,12 @@ public class NumPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JButton btn = (JButton) e.getSource();
         String number = btn.getText();
-        if (valuePanel.getValuePanel().getText().equals("0")) {
-            valuePanel.getValuePanel().setText("");
+        if (valuePanel.getTextField().getText().equals("0")) {
+            valuePanel.getTextField().setText("");
         }
-        valuePanel.getValuePanel().setText(valuePanel.getValuePanel().getText().concat(number));
+        if (valuePanel.getTextField().getText().length() == 10) {
+            return;
+        }
+        valuePanel.getTextField().setText(valuePanel.getTextField().getText().concat(number));
     }
 }

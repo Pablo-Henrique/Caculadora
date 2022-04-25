@@ -1,7 +1,5 @@
 package view;
 
-import utils.Operacoes;
-
 import javax.swing.*;
 import java.awt.*;
 

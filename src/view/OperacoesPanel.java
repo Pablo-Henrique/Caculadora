@@ -1,15 +1,17 @@
 package view;
 
 import utils.Config;
-import utils.Operacoes;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
 
 public class OperacoesPanel extends JPanel implements ActionListener {
+
+    private static char op;
+    private static double value1;
+    private static double value2;
 
     private final JButton btnDivisao = new JButton("/");
     private final JButton btnMais = new JButton("+");
@@ -18,17 +20,10 @@ public class OperacoesPanel extends JPanel implements ActionListener {
     private final JButton btnIgual = new JButton("=");
     private final JButton btnCE = new JButton("CE");
 
-    private JButton ultimaOperacao;
-
-    private final Operacoes op;
     private ValuePanel valuePanel;
-    private BigDecimal total;
-
 
     public OperacoesPanel(ValuePanel valuePanel) {
         this.valuePanel = valuePanel;
-        this.op = Operacoes.getInstance();
-        total = BigDecimal.ZERO;
 
         setBackground(Color.DARK_GRAY);
         setLayout(new GridLayout(4, 1, 3, 3));
@@ -79,47 +74,38 @@ public class OperacoesPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (valuePanel.getTextField().getText().isEmpty()) {
+            return;
+        }
         JButton btn = (JButton) e.getSource();
 
         if (btn.equals(btnCE)) {
-            valuePanel.getValuePanel().setText("");
-            this.op.clean();
-        }
+            op = '\u0000';
+            valuePanel.setText("0");
+        } else if (btn.equals(btnIgual)) {
+            value2 = Double.parseDouble(valuePanel.getTextField().getText());
+            double result = 0;
 
-        if (btn.equals(btnMais)) {
-            this.op.som(new BigDecimal(valuePanel.getValuePanel().getText()), btnMais.getText());
-            valuePanel.getValuePanel().setText("");
-        }
-
-        if (btn.equals(btnMenos)) {
-            this.op.sub(new BigDecimal(valuePanel.getValuePanel().getText()), btnMenos.getText());
-            valuePanel.getValuePanel().setText("");
-        }
-
-        if (btn.equals(btnDivisao)) {
-            this.op.div(new BigDecimal(valuePanel.getValuePanel().getText()), btnDivisao.getText());
-            valuePanel.getValuePanel().setText("");
-        }
-
-        if (btn.equals(btnMultip)) {
-            this.op.mult(new BigDecimal(valuePanel.getValuePanel().getText()), btnMultip.getText());
-            valuePanel.getValuePanel().setText("");
-        }
-
-        if (btn.equals(btnIgual)) {
-            if (this.op.getLastOperation().equals(btnDivisao.getText())) {
-                this.total = this.op.div(new BigDecimal(valuePanel.getValuePanel().getText()), btnIgual.getText());
+            if (op == '+') {
+                result = value1 + value2;
+            } else if (op == '-') {
+                result = value1 - value2;
+            } else if (op == '*') {
+                result = value1 * value2;
+            } else if (op == '/') {
+                result = value1 / value2;
             }
-            if (this.op.getLastOperation().equals(btnMultip.getText())) {
-                this.total = this.op.mult(new BigDecimal(valuePanel.getValuePanel().getText()), btnIgual.getText());
-            }
-            if (this.op.getLastOperation().equals(btnMais.getText())) {
-                this.total = this.op.som(new BigDecimal(valuePanel.getValuePanel().getText()), btnIgual.getText());
-            }
-            if (this.op.getLastOperation().equals(btnMenos.getText())) {
-                this.total = this.op.sub(new BigDecimal(valuePanel.getValuePanel().getText()), btnIgual.getText());
-            }
-            valuePanel.getValuePanel().setText(total.toString());
+
+            valuePanel.setText(String.valueOf(result));
+            op = '\u0000';
+            value1 = result;
+            value2 = 0;
+
+        } else {
+            op = btn.getText().charAt(0);
+            value1 = Double.parseDouble(valuePanel.getTextField().getText());
+            valuePanel.setText("");
         }
+
     }
 }

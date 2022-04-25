@@ -1,7 +1,5 @@
 package view;
 
-import utils.Operacoes;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -24,7 +22,11 @@ public class ValuePanel extends JPanel {
         add(valuePanel);
     }
 
-    public JTextField getValuePanel() {
+    public JTextField getTextField() {
         return valuePanel;
+    }
+
+    public void setText(String string) {
+        valuePanel.setText(string);
     }
 }
